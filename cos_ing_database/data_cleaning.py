@@ -21,7 +21,9 @@ df = pnd.DataFrame(data_frame, columns=["INCI name",
 
 df = df.rename(columns={"Chem/IUPAC Name / Description": "Description"})
 
-df["INCI name"] = df["INCI name"].replace('[\(,\)," "]','', regex=True)
+df["INCI name"] = df["INCI name"].replace('[\(,\)]','', regex=True)
+df["INCI name"] = df["INCI name"].str.strip()
+
 df = df.sort_values("INCI name")
 
 df.to_csv(f"{db_path}/cosing_clean/cosing_main_db.csv")
