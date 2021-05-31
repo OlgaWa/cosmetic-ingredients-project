@@ -4,3 +4,8 @@
 # Ignore PyCharm files
 .idea/
 venv/
+
+# Ignore folders and text files
+cosing_clean
+cosing_raw
+*.txt

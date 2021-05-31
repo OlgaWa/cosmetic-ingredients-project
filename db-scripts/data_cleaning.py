@@ -2,17 +2,15 @@ import pandas as pnd
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
-
-db_path = os.environ["COS_ING_DB_DIR"]
+db_path = os.environ["COSING_DB_DIR"]
 os.chdir(db_path)
-db = os.environ["COS_ING_RAW"]
+db = os.environ["COSING_RAW"]
 
-data_frame = pnd.read_csv(db, skiprows = 9)
-
-print(data_frame.shape)
-print(data_frame.head(0))
+table_start = 9
+data_frame = pnd.read_csv(db, skiprows=table_start)
 
 
 df = pnd.DataFrame(data_frame, columns=["INCI name",
@@ -21,9 +19,9 @@ df = pnd.DataFrame(data_frame, columns=["INCI name",
 
 df = df.rename(columns={"Chem/IUPAC Name / Description": "Description"})
 
-df["INCI name"] = df["INCI name"].replace('[\(,\)]','', regex=True)
+df["INCI name"] = df["INCI name"].replace('[\(,\)]', '', regex=True)
 df["INCI name"] = df["INCI name"].str.strip()
 
 df = df.sort_values("INCI name")
 
-df.to_csv(f"{db_path}/cosing_clean/cosing_main_db.csv")
+df.to_csv(f"{os.environ['COSING_CLEAN_PATH']}/cosing_mainn_db.csv")

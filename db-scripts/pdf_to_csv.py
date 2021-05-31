@@ -5,11 +5,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# Create folder for the clean data.
-db_path = os.environ["COS_ING_DB_DIR"]
-clean_loc = f"{db_path}/cosing_clean"
+db_path = os.environ["COSING_DB_DIR"]
+clean_loc = os.environ["COSING_CLEAN_PATH"]
 
-# Convert two files in PDF to CSV.
 if not os.path.exists(f"{clean_loc}/cosing_abbrev.csv"):
     tabula.convert_into("cosing_raw/COSING_Abbreviations.pdf",
                         f"{clean_loc}/cosing_abbrev.csv",
