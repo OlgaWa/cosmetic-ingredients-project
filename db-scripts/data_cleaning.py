@@ -24,4 +24,4 @@ df["INCI name"] = df["INCI name"].str.strip()
 
 df = df.sort_values("INCI name")
 
-df.to_csv(f"{os.environ['COSING_CLEAN_PATH']}/cosing_mainn_db.csv")
+df.to_csv(f"{os.environ['COSING_CLEAN_PATH']}/cosing_main_db.csv")
