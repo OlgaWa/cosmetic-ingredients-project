@@ -9,3 +9,4 @@ venv/
 cosing_clean
 cosing_raw
 *.txt
+!requirements.txt

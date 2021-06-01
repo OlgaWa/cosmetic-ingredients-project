@@ -9,8 +9,8 @@ db_path = os.environ["COSING_DB_DIR"]
 os.chdir(db_path)
 db = os.environ["COSING_RAW"]
 
-table_start = 9
-data_frame = pnd.read_csv(db, skiprows=table_start)
+TABLE_START = 9
+data_frame = pnd.read_csv(db, skiprows=TABLE_START)
 
 
 df = pnd.DataFrame(data_frame, columns=["INCI name",
@@ -24,4 +24,6 @@ df["INCI name"] = df["INCI name"].str.strip()
 
 df = df.sort_values("INCI name")
 
-df.to_csv(f"{os.environ['COSING_CLEAN_PATH']}/cosing_main_db.csv")
+clean_loc = os.environ['COSING_CLEAN_PATH']
+
+df.to_csv(os.path.join(clean_loc, "cosing_main_db.csv"))
