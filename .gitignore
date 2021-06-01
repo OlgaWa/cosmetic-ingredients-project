@@ -1,0 +1,12 @@
+# Ignore files related to API keys
+.env
+
+# Ignore PyCharm files
+.idea/
+venv/
+
+# Ignore folders and text files
+cosing_clean
+cosing_raw
+*.txt
+!requirements.txt
