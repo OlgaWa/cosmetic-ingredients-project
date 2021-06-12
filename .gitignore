@@ -1,9 +1,10 @@
-# Ignore files related to API keys
+# Ignore files related to API keys and personal info
 .env
 
-# Ignore PyCharm files
+# Ignore PyCharm and Python files
 .idea/
 venv/
+__pycache__/
 
 # Ignore folders and text files
 cosing_clean

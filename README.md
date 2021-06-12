@@ -1,1 +1,3 @@
-# test1
+# Cosmetic ingredients project
+
+under construction
