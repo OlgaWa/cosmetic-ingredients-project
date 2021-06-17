@@ -29,17 +29,17 @@ class Ingredient:
                           columns=["INCI_name", "Description", "Function"])
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cursor.execute("CREATE TABLE ingredients "
+        cursor.execute(f"CREATE TABLE {cls.__name__} "
                        "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
                        "INCI_name VARCHAR(5000), "
                        "INCI_description VARCHAR(5000), "
                        "INCI_function VARCHAR(500) )")
 
         for row in df.itertuples():
-            sql = "INSERT INTO " \
-                  "ingredients (INCI_name, " \
-                  "INCI_description, INCI_function) " \
-                  "VALUES (%s, %s, %s)"
+            sql = f"INSERT INTO " \
+                  f"{cls.__name__} (INCI_name, " \
+                  f"INCI_description, INCI_function) " \
+                  f"VALUES (%s, %s, %s)"
             val = (row.INCI_name, row.Description, row.Function)
 
             cursor.execute(sql, val)
@@ -61,16 +61,16 @@ class Abbreviation:
         df = df.rename(columns={"Chemical substance": "Chemical_substance"})
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cursor.execute("CREATE TABLE abbreviations "
+        cursor.execute(f"CREATE TABLE {cls.__name__} "
                        "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
                        "Abbreviation VARCHAR(10), "
                        "Chemical_substance VARCHAR(100) )")
 
         for row in df.itertuples():
-            sql = "INSERT INTO " \
-                  "abbreviations (Abbreviation, " \
-                  "Chemical_substance) " \
-                  "VALUES (%s, %s)"
+            sql = f"INSERT INTO " \
+                  f"{cls.__name__} (Abbreviation, " \
+                  f"Chemical_substance) " \
+                  f"VALUES (%s, %s)"
             val = (row.Abbreviation, row.Chemical_substance)
 
             cursor.execute(sql, val)
@@ -78,7 +78,7 @@ class Abbreviation:
         my_db.commit()
 
 
-class Function:
+class INCIFunction:
 
     def __init__(self, name):
         self.name = name
@@ -90,15 +90,14 @@ class Function:
         df = pd.DataFrame(data, columns=["Name", "Description"])
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cursor.execute("CREATE TABLE functions "
+        cursor.execute(f"CREATE TABLE {cls.__name__} "
                        "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                       "Name VARCHAR(50), "
-                       "Description VARCHAR(1000) )")
+                       "Name VARCHAR(50), Description VARCHAR(1000) )")
 
         for row in df.itertuples():
-            sql = "INSERT INTO " \
-                  "functions (Name, Description) " \
-                  "VALUES (%s, %s)"
+            sql = f"INSERT INTO " \
+                  f"{cls.__name__} (Name, Description) " \
+                  f"VALUES (%s, %s)"
             val = (row.Name, row.Description)
 
             cursor.execute(sql, val)
