@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import errorcode
-from ingredients import Ingredient, Abbreviation, INCIFunction
+from ingredient import Ingredient
+from abbreviation import Abbreviation
+from inci_function import INCIFunction
 import logging
 
 load_dotenv(override=True)
