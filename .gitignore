@@ -5,6 +5,7 @@
 .idea/
 venv/
 __pycache__/
+.ipynb_checkpoints/
 
 # Ignore folders and text files
 cosing_clean
