@@ -2,7 +2,7 @@ import tabula
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 
 db_path = os.environ["COSING_DB_DIR"]
