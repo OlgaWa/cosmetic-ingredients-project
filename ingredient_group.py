@@ -1,21 +1,7 @@
-import os
-from dotenv import load_dotenv
-import mysql.connector
-
-load_dotenv(override=True)
+from cosing_db.db_utils import CosIng
 
 
-my_db = mysql.connector.connect(
-    host="localhost",
-    user=os.environ["USER"],
-    password=os.environ["DB_PASSWORD"],
-    database="cos_ing_project"
-)
-
-cursor = my_db.cursor()
-
-
-class IngredientGroup:
+class IngredientGroup(CosIng):
 
     def __init__(self, name):
         self.name = name

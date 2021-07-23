@@ -1,22 +1,8 @@
-import os
-from dotenv import load_dotenv
-import mysql.connector
 import pandas as pd
-
-load_dotenv(override=True)
-
-
-my_db = mysql.connector.connect(
-    host="localhost",
-    user=os.environ["USER"],
-    password=os.environ["DB_PASSWORD"],
-    database="cos_ing_project"
-)
-
-cursor = my_db.cursor()
+from cosing_db.db_utils import CosIng
 
 
-class Abbreviation:
+class Abbreviation(CosIng):
 
     def __init__(self, name):
         self.name = name
@@ -30,10 +16,10 @@ class Abbreviation:
         df = df.rename(columns={"Chemical substance": "Chemical_substance"})
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cursor.execute(f"CREATE TABLE {cls.__name__} "
-                       "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                       "Abbreviation VARCHAR(10), "
-                       "Chemical_substance VARCHAR(100) )")
+        cls.cursor.execute(f"CREATE TABLE {cls.__name__} "
+                           "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                           "Abbreviation VARCHAR(10), "
+                           "Chemical_substance VARCHAR(100) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \
@@ -42,11 +28,13 @@ class Abbreviation:
                   f"VALUES (%s, %s)"
             val = (row.Abbreviation, row.Chemical_substance)
 
-            cursor.execute(sql, val)
+            cls.cursor.execute(sql, val)
 
-        my_db.commit()
+        cls.my_db.commit()
+        cls.cursor.close()
+        cls.my_db.close()
 
-    def _find_in_fb(self):
+    def _find_in_db(self):
         pass
 
     def get_ingredient(self):

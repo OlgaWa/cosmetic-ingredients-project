@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import errorcode
 from ingredient import Ingredient
@@ -7,17 +6,6 @@ from abbreviation import Abbreviation
 from inci_function import INCIFunction
 import logging
 
-load_dotenv(override=True)
-
-
-my_db = mysql.connector.connect(
-    host="localhost",
-    user=os.environ["USER"],
-    password=os.environ["DB_PASSWORD"],
-    database="cos_ing_project"
-)
-
-cursor = my_db.cursor()
 
 try:
     Ingredient.create_table(
@@ -49,5 +37,3 @@ except mysql.connector.errors.ProgrammingError as err:
                       exc_info=True)
     else:
         print(err.msg)
-
-cursor.close()

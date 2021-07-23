@@ -1,6 +1,3 @@
-import os
-
-
 class PdfGenerator:
 
     def __init__(self, ingredients):

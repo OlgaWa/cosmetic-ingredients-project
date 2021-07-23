@@ -1,22 +1,8 @@
-import os
-from dotenv import load_dotenv
-import mysql.connector
 import pandas as pd
-
-load_dotenv(override=True)
-
-
-my_db = mysql.connector.connect(
-    host="localhost",
-    user=os.environ["USER"],
-    password=os.environ["DB_PASSWORD"],
-    database="cos_ing_project"
-)
-
-cursor = my_db.cursor()
+from cosing_db.db_utils import CosIng
 
 
-class Ingredient:
+class Ingredient(CosIng):
 
     def __init__(self, name):
         self.name = name
@@ -29,11 +15,11 @@ class Ingredient:
                           columns=["INCI_name", "Description", "Function"])
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cursor.execute(f"CREATE TABLE {cls.__name__} "
-                       "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                       "INCI_name VARCHAR(5000), "
-                       "INCI_description VARCHAR(5000), "
-                       "INCI_function VARCHAR(500) )")
+        cls.cursor.execute(f"CREATE TABLE {cls.__name__} "
+                           "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                           "INCI_name VARCHAR(5000), "
+                           "INCI_description VARCHAR(5000), "
+                           "INCI_function VARCHAR(500) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \
@@ -42,9 +28,11 @@ class Ingredient:
                   f"VALUES (%s, %s, %s)"
             val = (row.INCI_name, row.Description, row.Function)
 
-            cursor.execute(sql, val)
+            cls.cursor.execute(sql, val)
 
-        my_db.commit()
+        cls.my_db.commit()
+        cls.cursor.close()
+        cls.my_db.close()
 
     def _find_in_db(self):
         pass
