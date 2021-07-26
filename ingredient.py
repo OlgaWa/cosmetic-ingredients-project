@@ -10,29 +10,34 @@ class Ingredient(CosIng):
     @classmethod
     def create_table(cls, filepath):
 
+        my_db = cls.db_connect()
+        cursor = my_db.cursor()
+
+        table_name = cls.__name__.lower()
+
         data = pd.read_csv(filepath, encoding="utf-8")
         df = pd.DataFrame(data,
                           columns=["INCI_name", "Description", "Function"])
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cls.cursor.execute(f"CREATE TABLE {cls.__name__} "
-                           "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                           "INCI_name VARCHAR(5000), "
-                           "INCI_description VARCHAR(5000), "
-                           "INCI_function VARCHAR(500) )")
+        cursor.execute(f"CREATE TABLE {table_name} "
+                       "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                       "INCI_name VARCHAR(5000), "
+                       "INCI_description VARCHAR(5000), "
+                       "INCI_function VARCHAR(500) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \
-                  f"{cls.__name__} (INCI_name, " \
+                  f"{table_name} (INCI_name, " \
                   f"INCI_description, INCI_function) " \
                   f"VALUES (%s, %s, %s)"
             val = (row.INCI_name, row.Description, row.Function)
 
-            cls.cursor.execute(sql, val)
+            cursor.execute(sql, val)
 
-        cls.my_db.commit()
-        cls.cursor.close()
-        cls.my_db.close()
+        my_db.commit()
+        cursor.close()
+        my_db.close()
 
     def _find_in_db(self):
         pass

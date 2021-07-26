@@ -10,25 +10,30 @@ class INCIFunction(CosIng):
     @classmethod
     def create_table(cls, filepath):
 
+        my_db = cls.db_connect()
+        cursor = my_db.cursor()
+
+        table_name = cls.__name__.lower()
+
         data = pd.read_csv(filepath, encoding="utf-8")
         df = pd.DataFrame(data, columns=["Name", "Description"])
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cls.cursor.execute(f"CREATE TABLE {cls.__name__} "
-                           "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                           "Name VARCHAR(50), Description VARCHAR(1000) )")
+        cursor.execute(f"CREATE TABLE {table_name} "
+                       "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                       "name VARCHAR(50), description VARCHAR(1000) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \
-                  f"{cls.__name__} (Name, Description) " \
+                  f"{table_name} (name, description) " \
                   f"VALUES (%s, %s)"
             val = (row.Name, row.Description)
 
-            cls.cursor.execute(sql, val)
+            cursor.execute(sql, val)
 
-        cls.my_db.commit()
-        cls.cursor.close()
-        cls.my_db.close()
+        my_db.commit()
+        cursor.close()
+        my_db.close()
 
     def _find_in_db(self):
         pass

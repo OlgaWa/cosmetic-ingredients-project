@@ -7,11 +7,13 @@ load_dotenv(override=True)
 
 class CosIng:
 
-    my_db = mysql.connector.connect(
-        host="localhost",
-        user=os.environ["USER"],
-        password=os.environ["DB_PASSWORD"],
-        database="cos_ing_project"
-    )
+    @classmethod
+    def db_connect(cls):
+        my_db = mysql.connector.connect(
+            host="localhost",
+            user=os.environ["USER"],
+            password=os.environ["DB_PASSWORD"],
+            database="cos_ing_project"
+        )
 
-    cursor = my_db.cursor()
+        return my_db

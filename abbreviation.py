@@ -10,29 +10,34 @@ class Abbreviation(CosIng):
     @classmethod
     def create_table(cls, filepath):
 
+        my_db = cls.db_connect()
+        cursor = my_db.cursor()
+
+        table_name = cls.__name__.lower()
+
         data = pd.read_csv(filepath, encoding="utf-8")
         df = pd.DataFrame(data,
                           columns=["Abbreviation", "Chemical substance"])
         df = df.rename(columns={"Chemical substance": "Chemical_substance"})
         df = df.astype(object).where(pd.notnull(df), None)
 
-        cls.cursor.execute(f"CREATE TABLE {cls.__name__} "
+        cursor.execute(f"CREATE TABLE {table_name} "
                            "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                           "Abbreviation VARCHAR(10), "
-                           "Chemical_substance VARCHAR(100) )")
+                           "abbreviation VARCHAR(10), "
+                           "chemical_substance VARCHAR(100) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \
-                  f"{cls.__name__} (Abbreviation, " \
-                  f"Chemical_substance) " \
+                  f"{table_name} (abbreviation, " \
+                  f"chemical_substance) " \
                   f"VALUES (%s, %s)"
             val = (row.Abbreviation, row.Chemical_substance)
 
-            cls.cursor.execute(sql, val)
+            cursor.execute(sql, val)
 
-        cls.my_db.commit()
-        cls.cursor.close()
-        cls.my_db.close()
+        my_db.commit()
+        cursor.close()
+        my_db.close()
 
     def _find_in_db(self):
         pass
