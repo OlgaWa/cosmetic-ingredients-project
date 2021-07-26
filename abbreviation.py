@@ -10,7 +10,7 @@ class Abbreviation(CosIng):
     @classmethod
     def create_table(cls, filepath):
 
-        my_db = cls.db_connect()
+        my_db = super().db_connect()
         cursor = my_db.cursor()
 
         table_name = cls.__name__.lower()
@@ -22,9 +22,9 @@ class Abbreviation(CosIng):
         df = df.astype(object).where(pd.notnull(df), None)
 
         cursor.execute(f"CREATE TABLE {table_name} "
-                           "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                           "abbreviation VARCHAR(10), "
-                           "chemical_substance VARCHAR(100) )")
+                       "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
+                       "abbreviation VARCHAR(10), "
+                       "chemical_substance VARCHAR(100) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \

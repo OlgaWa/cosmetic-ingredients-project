@@ -12,8 +12,7 @@ try:
         f"{os.environ['COSING_CLEAN_PATH']}cosing_main_db.csv")
 except mysql.connector.errors.ProgrammingError as err:
     if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-        logging.error(f"Table '{Ingredient.__name__.lower()}' already exists.",
-                      exc_info=True)
+        logging.error(f"Table '{Ingredient.__name__.lower()}' already exists.")
     else:
         print(err.msg)
 
@@ -23,8 +22,7 @@ try:
         f"{os.environ['COSING_CLEAN_PATH']}cosing_abbrev.csv")
 except mysql.connector.errors.ProgrammingError as err:
     if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-        logging.error(f"Table '{Abbreviation.__name__.lower()}' already exists.",
-                      exc_info=True)
+        logging.error(f"Table '{Abbreviation.__name__.lower()}' already exists.")
     else:
         print(err.msg)
         
@@ -33,7 +31,6 @@ try:
         f"{os.environ['COSING_CLEAN_PATH']}cosing_functions.csv")
 except mysql.connector.errors.ProgrammingError as err:
     if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-        logging.error(f"Table '{INCIFunction.__name__.lower()}' already exists.",
-                      exc_info=True)
+        logging.error(f"Table '{INCIFunction.__name__.lower()}' already exists.")
     else:
         print(err.msg)

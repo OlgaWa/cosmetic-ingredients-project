@@ -7,8 +7,8 @@ load_dotenv(override=True)
 
 class CosIng:
 
-    @classmethod
-    def db_connect(cls):
+    @staticmethod
+    def db_connect():
         my_db = mysql.connector.connect(
             host="localhost",
             user=os.environ["USER"],

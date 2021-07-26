@@ -10,7 +10,7 @@ class Ingredient(CosIng):
     @classmethod
     def create_table(cls, filepath):
 
-        my_db = cls.db_connect()
+        my_db = super().db_connect()
         cursor = my_db.cursor()
 
         table_name = cls.__name__.lower()
