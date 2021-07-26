@@ -23,12 +23,12 @@ class Abbreviation(CosIng):
 
         cursor.execute(f"CREATE TABLE {table_name} "
                        "(ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY, "
-                       "abbreviation VARCHAR(10), "
+                       "substance_abbrev VARCHAR(10), "
                        "chemical_substance VARCHAR(100) )")
 
         for row in df.itertuples():
             sql = f"INSERT INTO " \
-                  f"{table_name} (abbreviation, " \
+                  f"{table_name} (substance_abbrev, " \
                   f"chemical_substance) " \
                   f"VALUES (%s, %s)"
             val = (row.Abbreviation, row.Chemical_substance)
