@@ -39,8 +39,68 @@ class Abbreviation(CosIng):
         cursor.close()
         my_db.close()
 
-    def _find_in_db(self):
-        pass
-
     def get_ingredient(self):
-        pass
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
+
+        try:
+            cursor.execute("SELECT chemical_substance FROM "
+                           "abbreviation WHERE substance_abbrev=%s",
+                           (self.name,))
+            ingredient = cursor.fetchall()[0][0]
+
+            cursor.close()
+            my_db.close()
+
+            return ingredient
+
+        except (ValueError, IndexError):
+            cursor.close()
+            my_db.close()
+
+            return f"It seems we don't have {self.name} " \
+                   f"in our database. Please try again!"
+
+    def get_abbrev_in(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
+
+        try:
+            cursor.execute("SELECT chemical_substance FROM "
+                           "abbreviation WHERE substance_abbrev LIKE %s",
+                           ("%" + self.name + "%",))
+            result = cursor.fetchall()
+            cursor.execute("SELECT substance_abbrev FROM "
+                           "abbreviation WHERE substance_abbrev LIKE %s",
+                           ("%" + self.name + "%",))
+            abbrevs = cursor.fetchall()
+
+            cursor.close()
+            my_db.close()
+
+            if not result:
+                cursor.close()
+                my_db.close()
+
+                return f"No search results for {self.name}. " \
+                       f"Please try again!"
+            else:
+                similar = [x[0] for x in result]
+                similar_abbrevs = [x[0] for x in abbrevs]
+                zipped = list(zip(similar_abbrevs, similar))
+                result = ""
+
+                for y in zipped:
+                    result = result + f"{y[0]} - {y[1]}\n"
+
+                cursor.close()
+                my_db.close()
+
+                return result
+
+        except (ValueError, IndexError):
+            cursor.close()
+            my_db.close()
+
+            return f"No search results for {self.name}. " \
+                   f"Please try again!"
