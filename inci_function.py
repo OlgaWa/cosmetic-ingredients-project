@@ -42,6 +42,8 @@ class INCIFunction(CosIng):
         if not inci_func:
             return f"It seems we don't have function '{self.name}' " \
                    f"in our database. Please try again!"
+        elif len(self.name) < 3:
+            return "Type at least 3 characters."
         else:
             all_func = [x[0] for x in inci_func]
             all_names = [x[0] for x in inci_names]
