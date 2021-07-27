@@ -39,68 +39,70 @@ class Abbreviation(CosIng):
         cursor.close()
         my_db.close()
 
-    def get_ingredient(self):
-        my_db = super().db_connect()
-        cursor = my_db.cursor()
-
+    def show_ingredient(self):
         try:
-            cursor.execute("SELECT chemical_substance FROM "
-                           "abbreviation WHERE substance_abbrev=%s",
-                           (self.name,))
-            ingredient = cursor.fetchall()[0][0]
-
-            cursor.close()
-            my_db.close()
-
+            ingredient = self._db_find_ingredient()
             return ingredient
-
         except (ValueError, IndexError):
-            cursor.close()
-            my_db.close()
-
             return f"It seems we don't have {self.name} " \
                    f"in our database. Please try again!"
 
-    def get_abbrev_in(self):
+    def show_abbrev_in(self):
+        abbrevs = self._db_find_abbrevs()
+        subs = self._db_find_substances()
+
+        if not subs or not self.name:
+            return f"No search results for {self.name}. " \
+                   f"Please try again!"
+        else:
+            similar_subs = [x[0] for x in subs]
+            similar_abbrevs = [x[0] for x in abbrevs]
+            zipped = list(zip(similar_abbrevs, similar_subs))
+            result = ""
+
+            for y in zipped:
+                result = result + f"{y[0]} - {y[1]}\n"
+
+            return result
+
+    def _db_find_ingredient(self):
         my_db = super().db_connect()
         cursor = my_db.cursor()
 
-        try:
-            cursor.execute("SELECT chemical_substance FROM "
-                           "abbreviation WHERE substance_abbrev LIKE %s",
-                           ("%" + self.name + "%",))
-            result = cursor.fetchall()
-            cursor.execute("SELECT substance_abbrev FROM "
-                           "abbreviation WHERE substance_abbrev LIKE %s",
-                           ("%" + self.name + "%",))
-            abbrevs = cursor.fetchall()
+        cursor.execute("SELECT chemical_substance FROM "
+                       "abbreviation WHERE substance_abbrev=%s",
+                       (self.name,))
+        ingredient = cursor.fetchall()[0][0]
 
-            cursor.close()
-            my_db.close()
+        cursor.close()
+        my_db.close()
 
-            if not result:
-                cursor.close()
-                my_db.close()
+        return ingredient
 
-                return f"No search results for {self.name}. " \
-                       f"Please try again!"
-            else:
-                similar = [x[0] for x in result]
-                similar_abbrevs = [x[0] for x in abbrevs]
-                zipped = list(zip(similar_abbrevs, similar))
-                result = ""
+    def _db_find_abbrevs(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
 
-                for y in zipped:
-                    result = result + f"{y[0]} - {y[1]}\n"
+        cursor.execute("SELECT substance_abbrev FROM "
+                       "abbreviation WHERE substance_abbrev LIKE %s",
+                       ("%" + self.name + "%",))
+        abbrevs = cursor.fetchall()
 
-                cursor.close()
-                my_db.close()
+        cursor.close()
+        my_db.close()
 
-                return result
+        return abbrevs
 
-        except (ValueError, IndexError):
-            cursor.close()
-            my_db.close()
+    def _db_find_substances(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
 
-            return f"No search results for {self.name}. " \
-                   f"Please try again!"
+        cursor.execute("SELECT chemical_substance FROM "
+                       "abbreviation WHERE substance_abbrev LIKE %s",
+                       ("%" + self.name + "%",))
+        subs = cursor.fetchall()
+
+        cursor.close()
+        my_db.close()
+
+        return subs
