@@ -39,14 +39,94 @@ class Ingredient(CosIng):
         cursor.close()
         my_db.close()
 
-    def _find_in_db(self):
-        pass
+    def show_ingredients(self):
+        names = self._db_find_names()
 
-    def get_description(self):
-        pass
+        if not names:
+            return f"No search results for {self.name}. " \
+                   f"Please try again!"
+        elif len(self.name) < 3:
+            return "Type at least 3 characters."
+        else:
+            result = ""
+            for y in names:
+                result = result + f"{y[0]}\n"
 
-    def get_function(self):
-        pass
+            return result
 
-    def get_similar(self):
-        pass
+    def show_description(self):
+        try:
+            name = self._db_find_one_ingredient()
+            desc = self._db_find_desc()[0][0]
+            result = f"{name}: {desc}"
+            return result
+        except (ValueError, IndexError):
+            return f"It seems we don't have {self.name} " \
+                   f"in our database. Please try again!"
+
+    def show_function(self):
+        try:
+            name = self._db_find_one_ingredient()
+            func = self._db_find_func()
+            result = f"{name} - function: {func}"
+            return result
+        except (ValueError, IndexError):
+            return f"It seems we don't have {self.name} " \
+                   f"in our database. Please try again!"
+
+    def _db_find_one_ingredient(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
+
+        cursor.execute("SELECT INCI_name FROM "
+                       "ingredient WHERE INCI_name=%s",
+                       (self.name,))
+        ingredient = cursor.fetchall()[0][0]
+
+        cursor.close()
+        my_db.close()
+
+        return ingredient
+
+    def _db_find_names(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
+
+        cursor.execute("SELECT INCI_name FROM "
+                       "ingredient WHERE INCI_name LIKE %s ",
+                       ("%" + self.name + "%",))
+        names = cursor.fetchall()
+
+        cursor.close()
+        my_db.close()
+
+        return names
+
+    def _db_find_func(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
+
+        cursor.execute("SELECT INCI_function FROM "
+                       "ingredient WHERE INCI_name=%s",
+                       (self.name,))
+        func = cursor.fetchall()[0][0]
+
+        cursor.close()
+        my_db.close()
+
+        return func
+
+    def _db_find_desc(self):
+        my_db = super().db_connect()
+        cursor = my_db.cursor()
+
+        cursor.execute("SELECT INCI_description FROM "
+                       "ingredient WHERE INCI_name LIKE %s "
+                       "or INCI_description LIKE %s",
+                       ("%" + self.name + "%", "%" + self.name + "%",))
+        desc = cursor.fetchall()
+
+        cursor.close()
+        my_db.close()
+
+        return desc
