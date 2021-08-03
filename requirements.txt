@@ -2,3 +2,5 @@ python-dotenv~=0.17.1
 pandas~=1.2.4
 tabula-py~=2.2.0
 mysql-connector-python~=8.0.25
+fpdf~=1.7.2
+filestack-python~=3.4.0
