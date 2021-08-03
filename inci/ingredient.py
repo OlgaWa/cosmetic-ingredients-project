@@ -1,5 +1,5 @@
 import pandas as pd
-from cosing_db.db_utils import CosIng
+from inci_db.db_utils import CosIng
 
 
 class Ingredient(CosIng):

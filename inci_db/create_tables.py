@@ -1,9 +1,9 @@
 import os
 import mysql.connector
 from mysql.connector import errorcode
-from ingredient import Ingredient
-from abbreviation import Abbreviation
-from inci_function import INCIFunction
+from inci.ingredient import Ingredient
+from inci.abbreviation import Abbreviation
+from inci.inci_function import INCIFunction
 import logging
 
 

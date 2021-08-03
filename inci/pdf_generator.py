@@ -22,7 +22,7 @@ class PdfGenerator:
         pdf.set_text_color(1, 9, 60)
         pdf.cell(0, 20, "Cosmetic Ingredients App", 0, align="C", ln=1)
 
-        pdf.image("flask.png", w=14, h=16, )
+        pdf.image("files/flask.png", w=14, h=16, )
 
         pdf.set_font("Courier", "B", 18)
         pdf.set_text_color(246, 162, 229)
@@ -32,6 +32,7 @@ class PdfGenerator:
         pdf.set_text_color(0, 0, 0)
         pdf.multi_cell(0, 8, self.results, 0, align="L")
 
+        os.chdir("files")
         pdf.output(self.filename)
 
     def share(self):
