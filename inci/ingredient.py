@@ -44,9 +44,10 @@ class Ingredient(CosIng):
 
         if not names:
             return f"No search results for {self.name}. " \
-                   f"Please try again!"
+                   f"Go to the main page or try searching below!"
         elif len(self.name) < 3:
-            return "Type at least 3 characters."
+            return "Type at least 3 characters.\n" \
+                   "Go to the main page or try searching below!"
         else:
             result = ""
             for y in names:
@@ -58,21 +59,19 @@ class Ingredient(CosIng):
         try:
             name = self._db_find_one_ingredient()
             desc = self._db_find_desc()[0][0]
-            result = f"{name}: {desc}"
-            return result
+            result = f"{name}: \n{desc}"
+            return result.split("\n")
         except (ValueError, IndexError):
-            return f"It seems we don't have {self.name} " \
-                   f"in our database. Please try again!"
+            return f"It seems we don't have this ingredient " \
+                   f"in our database. Try again!"
 
     def show_function(self):
         try:
-            name = self._db_find_one_ingredient()
             func = self._db_find_func()
-            result = f"{name} - function: {func}"
-            return result
+            result = f"FUNCTION: \n{func}"
+            return result.split("\n")
         except (ValueError, IndexError):
-            return f"It seems we don't have {self.name} " \
-                   f"in our database. Please try again!"
+            return ""
 
     def _db_find_one_ingredient(self):
         my_db = super().db_connect()

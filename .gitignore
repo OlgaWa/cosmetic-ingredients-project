@@ -1,5 +1,6 @@
 # Ignore files related to API keys and personal info
 .env
+inci_db.sql
 
 # Ignore PyCharm and Python files
 .idea/
@@ -12,3 +13,7 @@ cosing_clean
 cosing_raw
 *.txt
 !requirements.txt
+!LICENSE_HTML5UP_template.txt
+
+# Ignore images and fonts for the app
+app/static/assets/

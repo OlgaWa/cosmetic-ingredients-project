@@ -40,10 +40,10 @@ class INCIFunction(CosIng):
         inci_func = self._db_find_func()
 
         if not inci_func:
-            return f"It seems we don't have function '{self.name}' " \
-                   f"in our database. Please try again!"
+            return "It seems we don't have this function " \
+                   "in our database. Try again!"
         elif len(self.name) < 3:
-            return "Type at least 3 characters."
+            return "Type at least 3 characters. Try again!"
         else:
             all_func = [x[0] for x in inci_func]
             all_names = [x[0] for x in inci_names]
@@ -53,7 +53,7 @@ class INCIFunction(CosIng):
             for y in zipped:
                 result = result + f"{y[0]}: {y[1]}\n"
 
-            return result
+            return result.split("\n")
 
     def _db_find_name(self):
         my_db = super().db_connect()
