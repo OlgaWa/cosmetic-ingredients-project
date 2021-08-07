@@ -51,7 +51,7 @@ class INCIFunction(CosIng):
             result = ""
 
             for y in zipped:
-                result = result + f"{y[0]}: {y[1]}\n"
+                result = result + f"{y[0]}:\n{y[1]}\n"
 
             return result.split("\n")
 

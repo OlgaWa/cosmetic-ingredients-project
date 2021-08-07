@@ -3341,8 +3341,8 @@ input, select, textarea {
 /* Search box */
 
     .search-box {
-        background: #e897bd;
-        font-family: 'Helvetica', sans-serif;
+        background: #ea7fae;
+        font-family: 'Source Sans Pro Light';
         font-size: 16pt;
 	    font-weight: 900;
 	    line-height: 1.75;

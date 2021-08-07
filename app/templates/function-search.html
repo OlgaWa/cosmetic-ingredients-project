@@ -33,11 +33,22 @@
 					<div id="main">
 						<div class="inner">
 							<h1>Generic Page</h1>
-							<b>{% for f in funcname %}
-								{{ f }}</b><br>
-							{% endfor %}
-							<p>Thank you! Wanna go again?</p>
-							<h2><a href="/main-search">Go back to main search</a></h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
+							<div class="search-box">
+    							<h2>Type FUNCTION to find out what it means:</h2>
+								<form action="/function-search" class="search" method="post" autocomplete="off">
+    								{{funcform.func_name(placeholder="e.g. ABRASIVE")}}
+									<br>
+									{{funcform.button}}
+									<br>
+									<br>
+									{% if result==True %}
+									<h3><b>{% for f in funcinfo %}
+										{{ f }}<br><br></b>
+										{% endfor %}</h3>
+									{% endif %}
+								</form>
+							</div>
 						</div>
 					</div>
 

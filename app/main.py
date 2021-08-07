@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from inci.ingredient_group import IngredientGroup
 from inci.ingredient import Ingredient
 from inci.inci_function import INCIFunction
+from inci.abbreviation import Abbreviation
 import os
 from dotenv import load_dotenv
 
@@ -32,12 +33,8 @@ class IngredientsResultPage(MethodView):
 
     def get(self):
         one_search = OneIngredientForm(request.form)
-        ingredient = Ingredient(one_search.inci.data.strip()).\
-            show_description()
-
         return render_template("ingredients-result.html",
                                onesearch=one_search,
-                               ingredient=ingredient,
                                result=True)
 
     def post(self):
@@ -68,13 +65,8 @@ class OneIngredientPage(MethodView):
 
     def get(self):
         one_search = OneIngredientForm(request.form)
-        ingredient = Ingredient(one_search.inci.data.strip()).\
-            show_description()
-
         return render_template("one-ingredient.html",
-                               onesearch=one_search,
-                               ingredient=ingredient,
-                               result=True)
+                               onesearch=one_search,)
 
     def post(self):
         one_search = OneIngredientForm(request.form)
@@ -125,6 +117,52 @@ class IngFuncPage(MethodView):
                                result=True)
 
 
+class FunctionSearchPage(MethodView):
+
+    def get(self):
+        func_form = FuncForm()
+        return render_template("function-search.html",
+                               funcform=func_form)
+
+    def post(self):
+        func_form = FuncForm(request.form)
+        func_info = INCIFunction(func_form.func_name.data.strip()).show_info()
+
+        return render_template("function-search.html",
+                               funcform=func_form,
+                               funcinfo=func_info,
+                               result=True)
+
+
+class AbbrevSearchPage(MethodView):
+
+    def get(self):
+        abbrev_form = AbbrevForm()
+        return render_template("abbrev-search.html",
+                               abbrevform=abbrev_form)
+
+    def post(self):
+        abbrev_form = AbbrevForm()
+        abbrev_info = Abbreviation(abbrev_form.abbrev_name.data.strip()).show_abbrev_in()
+
+        return render_template("abbrev-search.html",
+                               abbrevform=abbrev_form,
+                               abbrevinfo=abbrev_info,
+                               result=True)
+
+
+class AboutDBPage(MethodView):
+
+    def get(self):
+        return render_template("cosing-database.html")
+
+
+class AboutMe(MethodView):
+
+    def get(self):
+        return render_template("about.html")
+
+
 class IngredientsForm(FlaskForm):
 
     incis = StringField()
@@ -143,6 +181,18 @@ class IngFuncForm(FlaskForm):
     button = SubmitField("Search")
 
 
+class FuncForm(FlaskForm):
+
+    func_name = StringField()
+    button = SubmitField("Search")
+
+
+class AbbrevForm(FlaskForm):
+
+    abbrev_name = StringField()
+    button = SubmitField("Search")
+
+
 app.add_url_rule("/", view_func=HomePage.as_view("home_page"))
 app.add_url_rule("/main-search",
                  view_func=MainSearchPage.as_view("main_search_page"))
@@ -153,6 +203,13 @@ app.add_url_rule("/one-ingredient",
                  view_func=OneIngredientPage.as_view("one_ingredient_page"))
 app.add_url_rule("/inci-func",
                  view_func=IngFuncPage.as_view("inci_func_page"))
-
+app.add_url_rule("/function-search",
+                 view_func=FunctionSearchPage.as_view("func_search_page"))
+app.add_url_rule("/abbrev-search",
+                 view_func=AbbrevSearchPage.as_view("abbrev_search_page"))
+app.add_url_rule("/cosing-database",
+                 view_func=AboutDBPage.as_view("about_db_page"))
+app.add_url_rule("/about",
+                 view_func=AboutMe.as_view("about"))
 
 app.run(debug=True)

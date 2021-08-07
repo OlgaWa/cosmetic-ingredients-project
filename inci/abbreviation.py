@@ -63,7 +63,7 @@ class Abbreviation(CosIng):
             for y in zipped:
                 result = result + f"{y[0]} - {y[1]}\n"
 
-            return result
+            return result.split("\n")
 
     def _db_find_ingredient(self):
         my_db = super().db_connect()
