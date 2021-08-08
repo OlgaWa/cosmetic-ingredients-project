@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<title>Generic - Phantom by HTML5 UP</title>
+		<title>INCI main search</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./static/main.css" />
@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
 								<a href="/" class="logo">
-									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
 								</a>
 
 						</div>
@@ -33,14 +33,20 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Generic Page</h1>
-							<h3>{% for ingredient in ingredients %}
+							<h1>Search results</h1>
+							<h3><b>Here you can find all the cosmetic ingredients connected to your search:</b>
+								<br>
+								<br>
+							{% for ingredient in ingredients %}
 								{{ ingredient }}<br>
 							{% endfor %}</h3>
-                            <div class="search-box">
+							<h3><b>Have you found the one that you were looking for? If so, enter its EXACT NAME in the field below!</b>
+								<br>
+								<br></h3>
+							<div class="search-box">
     							<h2>Type ONE INGREDIENT:</h2>
 								<form action="/one-ingredient" class="search" method="post" autocomplete="off">
-    								{{onesearch.inci(placeholder="shea butter")}}
+    								{{onesearch.inci(placeholder="e.g. BUTYROSPERMUM PARKII SEEDCAKE EXTRACT")}}
 									<br>
 									{{onesearch.button}}
 									<br>

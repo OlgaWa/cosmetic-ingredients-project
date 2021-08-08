@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<title>Generic - Phantom by HTML5 UP</title>
+		<title>INCI Main Search</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./static/main.css" />
@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
 								<a href="/" class="logo">
-									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
 								</a>
 
 						</div>
@@ -33,17 +33,21 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Generic Page</h1>
+							<h1>Searched ingredient - description and function</h1>
 							<h4>{% for i in ingredient %}
 								{{ i }}<br><br></h4>
 							{% endfor %}
 							<h4>{% for f in incifunc %}
 								{{ f }}<br><br></h4>
 							{% endfor %}
+							<h3><em>You don't know what these functions mean? Type the name of the FUNCTION in the field below to find out! (You can type only one function a time.)</em>
+							<br>
+							<br>
+								</h3>
 							<div class="search-box">
-    							<h2>Type FUNCTION:</h2>
+    							<h2>Type the FUNCTION:</h2>
 								<form action="/inci-func" class="search" method="post" autocomplete="off">
-    								{{funcsearch.func_name(placeholder="shea butter")}}
+    								{{funcsearch.func_name(placeholder="e.g. OCCLUSIVE")}}
 									<br>
 									{{funcsearch.button}}
 									<br>

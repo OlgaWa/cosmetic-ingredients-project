@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<title>Cosmetic Ingredients Finder</title>
+		<title>Abbreviations Finder</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./static/main.css" />
@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
 								<a href="/" class="logo">
-									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
 								</a>
 
 						</div>
@@ -33,12 +33,18 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Generic Page</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
+							<h1>Cosmetic Abbreviations Finder</h1>
+							<p>Have you ever found some <b>strange abbreviation in the INCI list of your cosmetic</b>? Here you can find out what it means!
+								<br><br>
+								Type the abbreviation or a couple of letters of the abbreviation in the field below. We will show you <b>what name stays behind this abbreviation</b> or the similar ones!</p>
+							<p><em>Do you want to know more about the ingredient?</em>
+							<br>
+								<a href="/main-search">Go to the main search</a>
+							</p>
 							<div class="search-box">
-    							<h2>Type ABBREVIATION to find out what it means:</h2>
+    							<h2>Type the abbreviation:</h2>
 								<form action="/abbrev-search" class="search" method="post" autocomplete="off">
-    								{{abbrevform.abbrev_name(placeholder="e.g. HE")}}
+    								{{abbrevform.abbrev_name(placeholder="e.g. PEG")}}
 									<br>
 									{{abbrevform.button}}
 									<br>

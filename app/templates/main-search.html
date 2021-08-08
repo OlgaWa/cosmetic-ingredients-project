@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<title>Generic - Phantom by HTML5 UP</title>
+		<title>INCI main search</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./static/main.css" />
@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
 								<a href="/" class="logo">
-									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
 								</a>
 
 						</div>
@@ -33,13 +33,17 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Generic Page</h1>
-							<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique.</p>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel venenatis mauris vehicula hendrerit.</p>
+							<h1>Cosmetic Ingredients Main Finder</h1>
+							<p>Every cosmetic product in Europe must have a list of ingredients that it contains on its label. They have to be listed by their <b>International Nomenclature of Cosmetic Ingredients names</b> (INCI). Some examples of ingredients include oils, natural extracts, exfoliants or preservatives. If you don't know what some names mean, <em>here you can find out!</em>
+							<br>
+							<br>
+							One product can appear in many forms and therefore have many INCI names, e.g. shea butter - Butyrospermum Parkii Butter Extract, PEG-50 Shea Butter, Shea Butter Oleyl Esters.</p>
+							<h3>Type the name of the ingredient in the field below and we will show you all the INCI names connected to it!
+							<br><br></h3>
 							<div class="search-box">
-    							<h2>Type INGREDIENT to search for specific names:</h2>
+    							<h2>Type the INGREDIENT to search for specific names:</h2>
 								<form action="/ingredients-result" class="search" method="post" autocomplete="off">
-    								{{mainsearch.incis(placeholder="shea butter")}}
+    								{{mainsearch.incis(placeholder="e.g. shea")}}
 									<br>
 									{{mainsearch.button}}
 									<br>

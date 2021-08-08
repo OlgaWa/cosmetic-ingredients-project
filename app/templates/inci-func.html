@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<title>Generic - Phantom by HTML5 UP</title>
+		<title>INCI main search</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="./static/main.css" />
@@ -24,7 +24,7 @@
 
 							<!-- Logo -->
 								<a href="/" class="logo">
-									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
 								</a>
 
 						</div>
@@ -33,11 +33,14 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Generic Page</h1>
+							<h1>Function description</h1>
 							<b>{% for f in funcname %}
 								{{ f }}</b><br>
 							{% endfor %}
-							<p>Thank you! Wanna go again?</p>
+							<h3>Thank you! Do you want to go again?
+							<br>
+							<br>
+							</h3>
 							<h2><a href="/main-search">Go back to main search</a></h2>
 						</div>
 					</div>
