@@ -22,7 +22,8 @@ class PdfGenerator:
         pdf.set_text_color(1, 9, 60)
         pdf.cell(0, 20, "Cosmetic Ingredients App", 0, align="C", ln=1)
 
-        pdf.image("files/flask.png", w=14, h=16, )
+        folder = "../inci/files"
+        pdf.image(os.path.join(folder, "flask.png"), w=14, h=16, )
 
         pdf.set_font("Courier", "B", 18)
         pdf.set_text_color(246, 162, 229)
@@ -32,10 +33,9 @@ class PdfGenerator:
         pdf.set_text_color(0, 0, 0)
         pdf.multi_cell(0, 8, self.results, 0, align="L")
 
-        os.chdir("files")
-        pdf.output(self.filename)
+        pdf.output(os.path.join(folder, self.filename))
 
     def share(self):
         client = Client(self.api_key)
-        link = client.upload(filepath=self.filename)
+        link = client.upload(filepath=os.path.join("../inci/files", self.filename))
         return link.url

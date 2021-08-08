@@ -6,6 +6,7 @@ from inci.ingredient_group import IngredientGroup
 from inci.ingredient import Ingredient
 from inci.inci_function import INCIFunction
 from inci.abbreviation import Abbreviation
+from inci.pdf_generator import PdfGenerator
 import os
 from dotenv import load_dotenv
 
@@ -47,6 +48,14 @@ class IngredientsResultPage(MethodView):
             show_description()
         inci_func = Ingredient(one_search.inci.data).show_function()
 
+        inci_pdf = ""
+        for i in ingredients:
+            inci_pdf = inci_pdf + i + ", "
+
+        pdf = PdfGenerator(str(inci_pdf))
+        pdf.create()
+        link = pdf.share()
+
         if ingredients == "Type at least 3 characters. Try again!" or \
                 ingredients == "No search results. Try again!":
             return render_template("try-again.html",
@@ -58,6 +67,7 @@ class IngredientsResultPage(MethodView):
                                ingredient=ingredient,
                                ingredients=ingredients,
                                incifunc=inci_func,
+                               link=link,
                                result=True)
 
 
@@ -78,6 +88,14 @@ class OneIngredientPage(MethodView):
         func_name = INCIFunction(func_search.func_name.data.strip()).\
             show_info()
 
+        inci_pdf = ""
+        for i in ingredient:
+            inci_pdf = inci_pdf + "\n" + i
+
+        pdf = PdfGenerator(inci_pdf)
+        pdf.create()
+        link = pdf.share()
+
         if ingredient == f"It seems we don't have this ingredient " \
                          f"in our database. Try again!":
             return render_template("try-again.html",
@@ -89,6 +107,7 @@ class OneIngredientPage(MethodView):
                                funcsearch=func_search,
                                incifunc=inci_func,
                                funcname=func_name,
+                               link=link,
                                result=True)
 
 

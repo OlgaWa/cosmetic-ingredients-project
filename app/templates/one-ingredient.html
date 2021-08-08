@@ -33,13 +33,17 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Searched ingredient - description and function</h1>
+							<h1>Searched ingredient - description and functions</h1>
 							<h4>{% for i in ingredient %}
 								{{ i }}<br><br></h4>
 							{% endfor %}
 							<h4>{% for f in incifunc %}
 								{{ f }}<br><br></h4>
 							{% endfor %}
+							<h3><b>Save your result to PDF file!</b></h3>
+							<a href= {{link}}>Download PDF</a>
+							<br>
+							<br>
 							<h3><em>You don't know what these functions mean? Type the name of the FUNCTION in the field below to find out! (You can type only one function a time.)</em>
 							<br>
 							<br>

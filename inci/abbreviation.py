@@ -52,8 +52,8 @@ class Abbreviation(CosIng):
         subs = self._db_find_substances()
 
         if not subs or not self.name:
-            return f"No search results for {self.name}. " \
-                   f"Please try again!"
+            return f"No search results for {self.name}.\n" \
+                   f"Please try again!".split("\n")
         else:
             similar_subs = [x[0] for x in subs]
             similar_abbrevs = [x[0] for x in abbrevs]
