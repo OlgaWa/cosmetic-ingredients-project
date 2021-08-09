@@ -17,3 +17,4 @@ cosing_raw
 
 # Ignore images and fonts for the app
 app/static/assets/
+!logo.svg
