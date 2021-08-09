@@ -51,6 +51,7 @@ https://drive.google.com/drive/folders/14unw-qy46hFoPbl6qqIkM5v1cr0cMAZm?usp=sha
 
 ## Credits
 * **Database source**: European Commission' Cosmetic ingredient database (CosIng) - Ingredients and Fragrance inventory
+
   https://ec.europa.eu/growth/tools-databases/cosing/index.cfm
   
   https://data.europa.eu/data/datasets/cosmetic-ingredient-database-ingredients-and-fragrance-inventory?locale=en
@@ -60,4 +61,4 @@ https://drive.google.com/drive/folders/14unw-qy46hFoPbl6qqIkM5v1cr0cMAZm?usp=sha
 * **Code review**: [@wsoll](https://github.com/wsoll)
 
 ## Contact
-I invite you to contact me by [e-mail](olga.wacholc@gmail.com)!
+I invite you to contact me by [e-mail](mailto:olga.wacholc@gmail.com)!
