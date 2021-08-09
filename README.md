@@ -44,6 +44,7 @@ https://drive.google.com/drive/folders/14unw-qy46hFoPbl6qqIkM5v1cr0cMAZm?usp=sha
 * Clone this repository.
 * Create virtual environment.
 * Install all dependencies from requirements.txt file.
+* Create `.env` file with necessary environmental variables: USER, DB_PASSWORD, FILESTACK_API_KEY (you have to create an account), APP_KEY (any).
 * Download [this free template](https://html5up.net/phantom), copy the folders 'images' and 'webfonts' and put them in the `./app/static/assets` directory. You will not need the rest.
 * Download cleaned data from [this folder](https://drive.google.com/file/d/1TSDBaw6vF1SywNETfslqvkE9GukR1gXM/view).
 * Install MySQL Server and run files: `create_db.py` and `create_tables.py` to create a database.
