@@ -15,7 +15,7 @@
 
 It's a main project in my portfolio as a Python Developer. I've created the whole back-end of the app. Front-end is based on a template with my changes (credits below).
 
-**Link to the webpage**: soon
+**Link to the webpage**: [Cosmetic Ingredients Finder](https://dianeclaire.pythonanywhere.com/)
 
 ![tekst alternatywny](./app/static/assets/images/logo.svg#thumbnail)
 
