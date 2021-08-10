@@ -16,5 +16,6 @@ cosing_raw
 !LICENSE_HTML5UP_template.txt
 
 # Ignore images and fonts for the app
-app/static/assets/
+app/static/assets/images/
 !logo.svg
+/app/static/assets/webfonts/
