@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<title>Abbreviations Finder</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="./static/main.css" />
+		<noscript><link rel="stylesheet" href="./static/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="/" class="logo">
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
+								</a>
+
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Cosmetic Abbreviations Finder</h1>
+							<p>Have you ever found some <b>strange abbreviation in the INCI list of your cosmetic</b>? Here you can find out what it means!
+								<br><br>
+								Type the abbreviation or a couple of letters of the abbreviation in the field below. We will show you <b>what name stays behind this abbreviation</b> or the similar ones!</p>
+							<p><em>Do you want to know more about the ingredient?</em>
+							<br>
+								<a href="/main-search">Go to the main search</a>
+							</p>
+							<div class="search-box">
+    							<h2>Type the abbreviation:</h2>
+								<form action="/abbrev-search" class="search" method="post" autocomplete="off">
+    								{{abbrevform.abbrev_name(placeholder="e.g. PEG")}}
+									<br>
+									{{abbrevform.button}}
+									<br>
+									<br>
+									{% if result==True %}
+									<h3>{% for a in abbrevinfo %}
+										{{ a }}<br>
+										{% endfor %}</h3>
+									{% endif %}
+								</form>
+							</div>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="./static/jquery.min.js"></script>
+			<script src="./static/browser.min.js"></script>
+			<script src="./static/breakpoints.min.js"></script>
+			<script src="./static/util.js"></script>
+			<script src="./static/main.js"></script>
+
+	</body>
+</html>

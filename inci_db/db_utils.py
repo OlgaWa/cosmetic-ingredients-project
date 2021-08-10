@@ -5,7 +5,7 @@ import mysql.connector
 load_dotenv(override=True)
 
 
-class CosIng:
+class DatabaseConnector:
 
     @staticmethod
     def db_connect():

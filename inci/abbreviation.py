@@ -1,15 +1,18 @@
 import pandas as pd
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class Abbreviation(CosIng):
+class Abbreviation(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     @classmethod
     def create_table(cls, filepath):
-
+        """
+        Create a table in the database from csv file
+        with abbreviations of cosmetic ingredients.
+        """
         my_db = super().db_connect()
         cursor = my_db.cursor()
 
@@ -40,6 +43,7 @@ class Abbreviation(CosIng):
         my_db.close()
 
     def show_ingredient(self):
+        """Search for a cosmetic ingredient with a given abbreviation."""
         try:
             ingredient = self._db_find_ingredient()
             return ingredient
@@ -48,12 +52,16 @@ class Abbreviation(CosIng):
                    f"in our database. Please try again!"
 
     def show_abbrev_in(self):
+        """
+        Search for cosmetic ingredients with
+        abbreviations containing searched phrase.
+        """
         abbrevs = self._db_find_abbrevs()
         subs = self._db_find_substances()
 
         if not subs or not self.name:
-            return f"No search results for {self.name}. " \
-                   f"Please try again!"
+            return f"No search results for {self.name}.\n" \
+                   f"Please try again!".split("\n")
         else:
             similar_subs = [x[0] for x in subs]
             similar_abbrevs = [x[0] for x in abbrevs]
@@ -63,7 +71,7 @@ class Abbreviation(CosIng):
             for y in zipped:
                 result = result + f"{y[0]} - {y[1]}\n"
 
-            return result
+            return result.split("\n")
 
     def _db_find_ingredient(self):
         my_db = super().db_connect()

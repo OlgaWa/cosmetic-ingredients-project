@@ -1,15 +1,18 @@
 import pandas as pd
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class Ingredient(CosIng):
+class Ingredient(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     @classmethod
     def create_table(cls, filepath):
-
+        """
+        Create a table in the database from csv file
+        with all the cosmetic ingredients.
+        """
         my_db = super().db_connect()
         cursor = my_db.cursor()
 
@@ -40,13 +43,18 @@ class Ingredient(CosIng):
         my_db.close()
 
     def show_ingredients(self):
+        """
+        Search for cosmetic ingredients that have
+        a name containing searched phrase.
+        """
         names = self._db_find_names()
 
         if not names:
             return f"No search results for {self.name}. " \
-                   f"Please try again!"
+                   f"Go to the main page or try searching below!"
         elif len(self.name) < 3:
-            return "Type at least 3 characters."
+            return "Type at least 3 characters.\n" \
+                   "Go to the main page or try searching below!"
         else:
             result = ""
             for y in names:
@@ -55,24 +63,30 @@ class Ingredient(CosIng):
             return result
 
     def show_description(self):
+        """
+        Search for a cosmetic ingredient with
+        a given name and for its description.
+        """
         try:
             name = self._db_find_one_ingredient()
             desc = self._db_find_desc()[0][0]
-            result = f"{name}: {desc}"
-            return result
+            result = f"{name}: \n{desc}"
+            return result.split("\n")
         except (ValueError, IndexError):
-            return f"It seems we don't have {self.name} " \
-                   f"in our database. Please try again!"
+            return f"It seems we don't have this ingredient " \
+                   f"in our database. Try again!"
 
     def show_function(self):
+        """
+        Search for a cosmetic ingredient with
+        a given name and for its function.
+        """
         try:
-            name = self._db_find_one_ingredient()
             func = self._db_find_func()
-            result = f"{name} - function: {func}"
-            return result
+            result = f"FUNCTION: \n{func}"
+            return result.split("\n")
         except (ValueError, IndexError):
-            return f"It seems we don't have {self.name} " \
-                   f"in our database. Please try again!"
+            return ""
 
     def _db_find_one_ingredient(self):
         my_db = super().db_connect()

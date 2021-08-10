@@ -1,15 +1,18 @@
 import pandas as pd
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class INCIFunction(CosIng):
+class INCIFunction(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     @classmethod
     def create_table(cls, filepath):
-
+        """
+        Create a table in the database from csv file
+        with functions of cosmetic ingredients.
+        """
         my_db = super().db_connect()
         cursor = my_db.cursor()
 
@@ -36,14 +39,18 @@ class INCIFunction(CosIng):
         my_db.close()
 
     def show_info(self):
+        """
+        Search for information about functions
+        of cosmetic ingredients in the database.
+        """
         inci_names = self._db_find_name()
         inci_func = self._db_find_func()
 
         if not inci_func:
-            return f"It seems we don't have function '{self.name}' " \
-                   f"in our database. Please try again!"
+            return "It seems we don't have this function " \
+                   "in our database. Try again!\n".split("\n")
         elif len(self.name) < 3:
-            return "Type at least 3 characters."
+            return "Type at least 3 characters. Try again!\n".split("\n")
         else:
             all_func = [x[0] for x in inci_func]
             all_names = [x[0] for x in inci_names]
@@ -51,9 +58,9 @@ class INCIFunction(CosIng):
             result = ""
 
             for y in zipped:
-                result = result + f"{y[0]}: {y[1]}\n"
+                result = result + f"{y[0]}:\n{y[1]}\n"
 
-            return result
+            return result.split("\n")
 
     def _db_find_name(self):
         my_db = super().db_connect()

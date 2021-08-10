@@ -1,30 +1,28 @@
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class IngredientGroup(CosIng):
+class IngredientGroup(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     def show_ingredients(self):
+        """
+        Search for cosmetic ingredients that have a name
+        or a description containing searched phrase.
+        """
         names = self._db_find_names()
-        desc = self._db_find_desc()
 
         if not names:
-            return f"No search results for {self.name}. " \
-                   f"Please try again!"
+            return "No search results. Try again!"
         elif len(self.name) < 3:
-            return "Type at least 3 characters."
+            return "Type at least 3 characters. Try again!"
         else:
-            name_list = [x[0] for x in names]
-            desc_list = [x[0] for x in desc]
-            zipped = list(zip(name_list, desc_list))
             result = ""
+            for y in names:
+                result = result + f"{y[0]}\n"
 
-            for y in zipped:
-                result = result + f"{y[0]} - {y[1]}\n"
-
-            return result
+            return result.split("\n")
 
     def _db_find_names(self):
         my_db = super().db_connect()

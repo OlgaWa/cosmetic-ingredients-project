@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<title>Functions Finder</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="./static/main.css" />
+		<noscript><link rel="stylesheet" href="./static/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="/" class="logo">
+									<span class="symbol"><img src="./static/assets/images/logo.svg" alt="" /></span><span class="title">Cosmetic Ingredients Finder</span>
+								</a>
+
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Cosmetic Functions Finder</h1>
+							<p>Cosmetic ingredients can have many different functions. Below you can find the <b>list of functions form the EU CosIng Database:</b>
+								<br>
+								<h3>ABRASIVE, ABSORBENT, ADHESIVE, ANTI-SEBORRHEIC, ANTI-SEBUM, ANTICAKING, ANTICORROSIVE, ANTIFOAMING, ANTIMICROBIAL, ANTIOXIDANT, ANTIPERSPIRANT, ANTIPLAQUE, ANTISTATIC, ASTRINGENT, BINDING, BLEACHING, BUFFERING, BULKING, CHELATING, CLEANSING, COLORANT, DENATURANT, DEODORANT, DEPILATORY, DETANGLING, DISPERSING NON-SURFACTANT, EMULSION STABILISING, EPILATING, EXFOLIATING, EYELASH CONDITIONING, FILM FORMING, FLAVOURING, FOAMING, FRAGRANCE, GEL FORMING, HAIR CONDITIONING, HAIR DYEING, HAIR FIXING, HAIR WAVING OR STRAIGHTENING, HUMECTANT, KERATOLYTIC, LIGHT STABILIZER, LYTIC, MOISTURISING, NAIL CONDITIONING, NAIL SCULPTING, NOT REPORTED, OCCLUSIVE, OPACIFYING, ORAL CARE, OXIDISING, PEARLESCENT, PERFUMING, pH ADJUSTERS, PLASTICISER, PRESERVATIVE, PROPELLANT, REDUCING, REFATTING, REFRESHING, SKIN CONDITIONING, SKIN CONDITIONING - EMOLLIENT, SKIN CONDITIONING - HUMECTANT, SKIN CONDITIONING - MISCELLANEOUS, SKIN CONDITIONING - OCCLUSIVE, SKIN PROTECTING, SLIP MODIFIER, SMOOTHING, SOLVENT, SOOTHING, SURFACE MODIFIER, SURFACTANT, SURFACTANT - CLEANSING, SURFACTANT - DISPERSING, SURFACTANT - EMULSIFYING, SURFACTANT - FOAM BOOSTING, SURFACTANT - HYDROTROPE, SURFACTANT - SOLUBILIZING, TANNING, TONIC, UV ABSORBER, UV FILTER, VISCOSITY CONTROLLING.</h3>
+								<br>
+								Do you recognize any function? <em>Type its name in the field below to find out what it means!</em>
+								<br>
+								<br>
+							<div class="search-box">
+    							<h2>Type the function:</h2>
+								<form action="/function-search" class="search" method="post" autocomplete="off">
+    								{{funcform.func_name(placeholder="e.g. ANTIOXIDANT")}}
+									<br>
+									{{funcform.button}}
+									<br>
+									<br>
+									{% if result==True %}
+									<h3><b>{% for f in funcinfo %}
+										{{ f }}<br><br></b>
+										{% endfor %}</h3>
+									{% endif %}
+								</form>
+							</div>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="./static/jquery.min.js"></script>
+			<script src="./static/browser.min.js"></script>
+			<script src="./static/breakpoints.min.js"></script>
+			<script src="./static/util.js"></script>
+			<script src="./static/main.js"></script>
+
+	</body>
+</html>
