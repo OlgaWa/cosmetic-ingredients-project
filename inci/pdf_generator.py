@@ -37,7 +37,7 @@ class PdfGenerator:
         pdf.output(os.path.join(folder, self.filename))
 
     def share(self):
-        """Upload PDF file to Filestack and create link."""
+        """Upload PDF file to Filestack and create a link."""
         client = Client(self.api_key)
         link = client.upload(filepath=os.path.join("../inci/files", self.filename))
         return link.url

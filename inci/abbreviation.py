@@ -43,7 +43,7 @@ class Abbreviation(DatabaseConnector):
         my_db.close()
 
     def show_ingredient(self):
-        """Search for cosmetic ingredient with a given abbreviation."""
+        """Search for a cosmetic ingredient with a given abbreviation."""
         try:
             ingredient = self._db_find_ingredient()
             return ingredient
