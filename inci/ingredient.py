@@ -1,15 +1,18 @@
 import pandas as pd
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class Ingredient(CosIng):
+class Ingredient(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     @classmethod
     def create_table(cls, filepath):
-
+        """
+        Create a table in the database from csv file
+        with all the cosmetic ingredients.
+        """
         my_db = super().db_connect()
         cursor = my_db.cursor()
 
@@ -40,6 +43,10 @@ class Ingredient(CosIng):
         my_db.close()
 
     def show_ingredients(self):
+        """
+        Search for cosmetic ingredients that have
+        a name containing searched phrase.
+        """
         names = self._db_find_names()
 
         if not names:
@@ -56,6 +63,10 @@ class Ingredient(CosIng):
             return result
 
     def show_description(self):
+        """
+        Search for a cosmetic ingredient with
+        a given name and for its description.
+        """
         try:
             name = self._db_find_one_ingredient()
             desc = self._db_find_desc()[0][0]
@@ -66,6 +77,10 @@ class Ingredient(CosIng):
                    f"in our database. Try again!"
 
     def show_function(self):
+        """
+        Search for a cosmetic ingredient with
+        a given name and for its function.
+        """
         try:
             func = self._db_find_func()
             result = f"FUNCTION: \n{func}"

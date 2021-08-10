@@ -1,12 +1,16 @@
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class IngredientGroup(CosIng):
+class IngredientGroup(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     def show_ingredients(self):
+        """
+        Search for cosmetic ingredients that have a name
+        or a description containing searched phrase.
+        """
         names = self._db_find_names()
 
         if not names:

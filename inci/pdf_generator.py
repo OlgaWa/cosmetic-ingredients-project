@@ -15,6 +15,7 @@ class PdfGenerator:
         self.filename = f"cosing{time.strftime('%Y%m%d-%H%M%S')}.pdf"
 
     def create(self):
+        """Create PDF file with search results."""
         pdf = FPDF("P", "mm", "A4")
         pdf.add_page("P")
 
@@ -36,6 +37,7 @@ class PdfGenerator:
         pdf.output(os.path.join(folder, self.filename))
 
     def share(self):
+        """Upload PDF file to Filestack and create link."""
         client = Client(self.api_key)
         link = client.upload(filepath=os.path.join("../inci/files", self.filename))
         return link.url

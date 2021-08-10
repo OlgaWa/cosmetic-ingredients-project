@@ -1,15 +1,18 @@
 import pandas as pd
-from inci_db.db_utils import CosIng
+from inci_db.db_utils import DatabaseConnector
 
 
-class INCIFunction(CosIng):
+class INCIFunction(DatabaseConnector):
 
     def __init__(self, name):
         self.name = name
 
     @classmethod
     def create_table(cls, filepath):
-
+        """
+        Create a table in the database from csv file
+        with functions of cosmetic ingredients.
+        """
         my_db = super().db_connect()
         cursor = my_db.cursor()
 
@@ -36,6 +39,10 @@ class INCIFunction(CosIng):
         my_db.close()
 
     def show_info(self):
+        """
+        Search for information about functions
+        of cosmetic ingredients in the database.
+        """
         inci_names = self._db_find_name()
         inci_func = self._db_find_func()
 
